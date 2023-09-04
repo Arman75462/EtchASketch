@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto&display=swap");
+
 /* RESETS */
 
 *,
@@ -17,20 +19,165 @@ a {
   text-decoration: none;
 }
 
-/* --------------------THE GRID--------------------- */
-.etch-a-sketch {
-  display: grid;
-  grid-template-columns: repeat(16, 30px);
-  grid-template-rows: repeat(16, 30px);
-  background-color: whitesmoke;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
 }
 
-.grid-item {
+.main__title {
+  font-size: 4.5rem;
+}
+
+/* -------------------------------------------
+-----------------BODY AND MAIN----------------
+---------------------------------------------*/
+
+body {
+  height: 100vh;
+  font-family: "Luckiest Guy", cursive;
+  background-image: linear-gradient(to bottom right, #ffb9c5, #ff4262);
+  color: white;
+  color: rgb(253, 253, 109);
+  letter-spacing: 0.2em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 80%;
+  height: 100vh;
+  justify-content: space-evenly;
+}
+
+/* -------------------------------------------------
+-----------------INSIDE MAIN-CONTROLS---------------
+----------------------------------------------------*/
+.main__controls {
+  order: 1;
+  display: flex;
+  /* background-color: blue; */
+}
+
+.main__controls-item {
+  margin: 0 1em;
+}
+
+.main__label {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.main__grid-size-picker {
+  margin-top: 1.5em;
+}
+
+.main__button {
+  padding: 1em 2em;
+  font-size: 1.2rem;
+  background-image: linear-gradient(to bottom, #ff5733, #ffc300);
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.3s;
+  height: 80px;
+  align-self: center;
+}
+
+.main__button:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
+
+.main__color-picker {
+  padding: 1em;
+  font-size: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  border: 2px solid rgb(253, 253, 109);
+  transition: transform 0.3s;
+  background-color: black;
+}
+
+.main__color-picker:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
+
+/* -------------------------------------------
+----------------------GRID--------------------
+---------------------------------------------*/
+.main__grid {
+  display: grid;
+  grid-template-columns: repeat(16, 35px);
+  grid-template-rows: repeat(16, 35px);
+  background-color: whitesmoke;
+  position: relative;
+}
+
+.main__grid-item {
   border: 1px solid rgb(194, 194, 194);
 }
 
-/* --------------------OUTSIDE OF THE GRID--------------------- */
+/* ----------------------------------------------
+-----------------ANIMATION BORDER----------------
+-------------------------------------------------*/
+
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+
+.main__grid::before {
+  content: "";
+  width: 104%;
+  height: 102%;
+  border-radius: 8px;
+  background-image: linear-gradient(
+    var(--rotate),
+    #ff5733,
+    #ffc300 43%,
+    rgb(253, 253, 109)
+  );
+  position: absolute;
+  z-index: -1;
+  top: -1%;
+  left: -2%;
+  animation: spin 6s linear infinite;
+}
+
+.main__grid::after {
+  position: absolute;
+  content: "";
+  top: calc(var(--card-height) / 6);
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(0.8);
+  filter: blur(calc(var(--card-height) / 6));
+  background-image: linear-gradient(
+    var(--rotate),
+    #ff5733,
+    #ffc300 43%,
+    rgb(253, 253, 109)
+  );
+  opacity: 1;
+  transition: opacity 0.5s;
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+  100% {
+    --rotate: 360deg;
+  }
+}

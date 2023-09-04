@@ -7,19 +7,47 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Etch A Sketch</h1>
+    <main>
+      <!-- TITLE -->
+      <h1 class="main__title">Etch A Sketch !</h1>
 
-    <div class="controls">
-      <button id="clear-button">Clear</button>
-      <button id="eraser">Eraser</button>
-      <button id="clear">Clear</button>
-      <label for="color-picker">Color:</label>
-      <input type="color" id="color-picker" name="color-picker" />
-      <label for="grid-size-picker"></label>
-      <input type="range" min="1x1" max="40x40" value="16x16" />
-    </div>
+      <!-- MAIN-CONTROLS -->
+      <div class="main__controls">
+        <!-- CLEAR BUTTON -->
+        <button class="main__button main__controls-item" id="clear-button">
+          Clear
+        </button>
+        <!-- ERASER BUTTON -->
+        <button class="main__button main__controls-item" id="eraser">
+          Eraser
+        </button>
+        <!-- COLOR CONTROLS -->
+        <div class="main__color-controls">
+          <p class="main__label">Color:</p>
+          <input
+            type="color"
+            id="color-picker"
+            name="color-picker"
+            class="main__controls-item main__color-picker"
+          />
+        </div>
+        <!-- GRID-SIZE CONTROLS -->
+        <div class="main__grid-size-controls">
+          <p class="main__label">Grid size:</p>
+          <input
+            type="range"
+            min="1x1"
+            max="40x40"
+            value="16x16"
+            id="grid-size-picker"
+            class="main__controls-item main__grid-size-picker"
+          />
+        </div>
+      </div>
 
-    <div class="etch-a-sketch"></div>
+      <!-- GRID -->
+      <div class="main__grid"></div>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
