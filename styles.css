@@ -38,7 +38,7 @@ select {
 body {
   height: 100vh;
   font-family: "Luckiest Guy", cursive;
-  background-image: linear-gradient(to bottom right, #ffb9c5, #ff4262);
+  background-image: linear-gradient(to bottom right, #ffd9e0, #ff4262);
   color: white;
   color: rgb(253, 253, 109);
   letter-spacing: 0.2em;
@@ -112,15 +112,15 @@ main {
 ---------------------------------------------*/
 .main__grid {
   display: grid;
-  grid-template-columns: repeat(16, 35px);
-  grid-template-rows: repeat(16, 35px);
+  grid-template-columns: repeat(64, 10px);
+  grid-template-rows: repeat(64, 10px);
   background-color: whitesmoke;
   position: relative;
 }
 
-.main__grid-item {
+/* .main__grid-items {
   border: 1px solid rgb(194, 194, 194);
-}
+} */
 
 /* ----------------------------------------------
 -----------------ANIMATION BORDER----------------
