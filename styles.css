@@ -39,7 +39,6 @@ body {
   height: 100vh;
   font-family: "Luckiest Guy", cursive;
   background-image: linear-gradient(to bottom right, #ffd9e0, #ff4262);
-  color: white;
   color: rgb(253, 253, 109);
   letter-spacing: 0.2em;
 }
@@ -69,11 +68,16 @@ main {
 
 .main__label {
   text-align: center;
-  margin-bottom: 10px;
+}
+
+.main__show-grid-size {
+  text-align: center;
+  align-self: center;
+  margin-top: 0.8em;
 }
 
 .main__grid-size-picker {
-  margin-top: 1.5em;
+  margin-top: 0.2em;
 }
 
 .main__button {
@@ -112,8 +116,8 @@ main {
 ---------------------------------------------*/
 .main__grid {
   display: grid;
-  grid-template-columns: repeat(64, 10px);
-  grid-template-rows: repeat(64, 10px);
+  grid-template-columns: repeat(32, 20px);
+  grid-template-rows: repeat(32, 20px);
   background-color: whitesmoke;
   position: relative;
 }
