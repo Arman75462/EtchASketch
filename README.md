@@ -20,7 +20,7 @@ The Etch A Sketch project is a web-based drawing application that allows users t
 - **Color Picker**: Users can select a color from a color picker to draw on the canvas.
 - **Eraser**: An eraser tool allows users to erase parts of their drawings.
 - **Clear Button**: The clear button clears the entire canvas.
-- **Grid Size Control**: Users can adjust the grid size from 1x1 to 40x40.
+- **Grid Size Control**: Users can adjust the grid size from 1x1 to 64x64.
 - **Interactive Drawing**: The grid becomes interactive when hovering the mouse over it, allowing for easy drawing and erasing.
 - **Visual Enhancements**: The application features animations and a colorful interface.
 
@@ -57,7 +57,7 @@ cd <repository-directory>
    - The application allows you to interactively draw and erase on the grid by hovering and clicking.
 
 7. **Reset Eraser**:
-   - Clicking the color picker will reset the eraser tool, so you can start drawing again.
+   - Clicking the color picker or the clear button will reset the eraser tool, so you can start drawing again.
 
 ## Contributing
 
