@@ -48,6 +48,7 @@ function makeEtchWork() {
   const gridItems = document.querySelectorAll(".main__grid-items");
 
   let isDrawing = false;
+  let isClicking = false;
 
   gridItems.forEach((item) => {
     let eraserState = false;
@@ -65,15 +66,30 @@ function makeEtchWork() {
       isDrawing = false;
     });
 
-    item.addEventListener("mouseenter", function (event) {
+    item.addEventListener("mousemove", function (event) {
       if (isDrawing) {
         const selectedColor = colorPicker.value;
         const clickedItem = event.target;
 
         if (eraserState) {
-          clickedItem.style.backgroundColor = "whitesmoke";
+          // Apply the fade-out animation class
+          clickedItem.classList.add("fade-out");
+
+          // Remove the fade-out class and change the background color after the animation
+          setTimeout(() => {
+            clickedItem.style.backgroundColor = "whitesmoke";
+            clickedItem.classList.remove("fade-out");
+          }, 200); // 200 milliseconds (0.2 seconds) delay
         } else {
           clickedItem.style.backgroundColor = selectedColor;
+
+          // Apply the fade-in animation class
+          clickedItem.classList.add("fade-in");
+
+          // Remove the fade-in class after the animation
+          setTimeout(() => {
+            clickedItem.classList.remove("fade-in");
+          }, 200); // 200 milliseconds (0.2 seconds) delay
         }
       }
     });
