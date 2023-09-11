@@ -58,39 +58,29 @@ function makeEtchWork() {
       eraserState = !eraserState;
     });
 
-    item.addEventListener("mousedown", function () {
-      isDrawing = true;
-    });
-
-    item.addEventListener("mouseup", function () {
-      isDrawing = false;
-    });
-
     item.addEventListener("mousemove", function (event) {
-      if (isDrawing) {
-        const selectedColor = colorPicker.value;
-        const clickedItem = event.target;
+      const selectedColor = colorPicker.value;
+      const clickedItem = event.target;
 
-        if (eraserState) {
-          // Apply the fade-out animation class
-          clickedItem.classList.add("fade-out");
+      if (eraserState) {
+        // Apply the fade-out animation class
+        clickedItem.classList.add("fade-out");
 
-          // Remove the fade-out class and change the background color after the animation
-          setTimeout(() => {
-            clickedItem.style.backgroundColor = "whitesmoke";
-            clickedItem.classList.remove("fade-out");
-          }, 200); // 200 milliseconds (0.2 seconds) delay
-        } else {
-          clickedItem.style.backgroundColor = selectedColor;
+        // Remove the fade-out class and change the background color after the animation
+        setTimeout(() => {
+          clickedItem.style.backgroundColor = "whitesmoke";
+          clickedItem.classList.remove("fade-out");
+        }, 200); // 200 milliseconds (0.2 seconds) delay
+      } else {
+        clickedItem.style.backgroundColor = selectedColor;
 
-          // Apply the fade-in animation class
-          clickedItem.classList.add("fade-in");
+        // Apply the fade-in animation class
+        clickedItem.classList.add("fade-in");
 
-          // Remove the fade-in class after the animation
-          setTimeout(() => {
-            clickedItem.classList.remove("fade-in");
-          }, 200); // 200 milliseconds (0.2 seconds) delay
-        }
+        // Remove the fade-in class after the animation
+        setTimeout(() => {
+          clickedItem.classList.remove("fade-in");
+        }, 200); // 200 milliseconds (0.2 seconds) delay
       }
     });
 
