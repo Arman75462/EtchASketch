@@ -27,7 +27,7 @@ colorPicker.addEventListener("input", () => {
 
 // Function to set up the drawing grid based on the selected grid size
 function makeEtchWork() {
-  const desiredWidth = 640; // Desired width for the grid in pixels
+  const desiredWidth = 450; // Desired width for the grid in pixels
   const gridSize = gridSizePicker.value;
 
   // Calculate the size of each column and row to fit the desired width
