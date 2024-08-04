@@ -83,7 +83,7 @@ main {
 .main__button {
   padding: 1em 2em;
   font-size: 1.2rem;
-  background-image: linear-gradient(to bottom, #ff5733, #ffc300);
+  background: linear-gradient(to bottom, #ff5733, #ffc300);
   border: none;
   border-radius: 5px;
   transition: transform 0.3s;
@@ -120,11 +120,10 @@ main {
   grid-template-rows: repeat(32, 20px);
   background-color: whitesmoke;
   position: relative;
+
+  /* Prevents text selection to avoid elements appearing grabbed or selected  */
+  user-select: none; /* Prevents text selection */
 }
-/* 
-.main__grid-items {
-  border: 1px solid rgb(194, 194, 194);
-} */
 
 /* ----------------------------------------------
 -----------------ANIMATION BORDER----------------

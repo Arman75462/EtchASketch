@@ -1,6 +1,9 @@
 "use strict";
 
-// Selectors
+/* GLOBAL VARIABLES */
+let eraserState = false;
+
+/* SELECTORS */
 const grid = document.querySelector(".main__grid");
 const colorPicker = document.getElementById("color-picker");
 const eraser = document.getElementById("eraser");
@@ -8,183 +11,99 @@ const clearButton = document.getElementById("clear-button");
 const gridSizePicker = document.getElementById("grid-size-picker");
 const gridSizeText = document.querySelector(".main__show-grid-size");
 
-// Debounce function to delay the execution of a function
+/* FUNCTIONS */
+// Delays the execution of a function by the specified amount of time
 function debounce(func, delay) {
   let timerId;
-  return function () {
+  return function (...args) {
     clearTimeout(timerId);
-    timerId = setTimeout(() => {
-      func.apply(this, arguments);
-    }, delay);
+    timerId = setTimeout(() => func.apply(this, args), delay);
   };
 }
 
-// When the user picks a color, update the color picker's display
-colorPicker.addEventListener("input", () => {
-  const selectedColor = colorPicker.value;
-  colorPicker.style.backgroundColor = selectedColor;
-});
+// Updates the style of the eraser button based on the eraser state
+function updateEraserStyle() {
+  eraser.style.border = eraserState ? "2px solid black" : "none";
+}
 
-// Function to set up the drawing grid based on the selected grid size
+// Applies color or erases grid cells based on the eraser state and mouse movement
+function handleMouseMove(event) {
+  if (event.buttons === 1) {
+    const selectedColor = colorPicker.value;
+    const clickedItem = event.target;
+
+    if (eraserState) {
+      clickedItem.classList.add("fade-out");
+      setTimeout(() => {
+        clickedItem.style.backgroundColor = "whitesmoke";
+        clickedItem.classList.remove("fade-out");
+      }, 200); // Delay for fade-out animation
+    } else {
+      clickedItem.style.backgroundColor = selectedColor;
+      clickedItem.classList.add("fade-in");
+      setTimeout(() => clickedItem.classList.remove("fade-in"), 200); // Delay for fade-in animation
+    }
+  }
+}
+
+// Configures the grid size and creates grid cells based on the selected size
 function makeEtchWork() {
   const desiredWidth = 450; // Desired width for the grid in pixels
   const gridSize = gridSizePicker.value;
-
-  // Calculate the size of each column and row to fit the desired width
   const cellSize = desiredWidth / gridSize;
 
-  // Adjust the grid's columns and rows based on the selected size
   grid.style.gridTemplateColumns = `repeat(${gridSize}, ${cellSize}px)`;
   grid.style.gridTemplateRows = `repeat(${gridSize}, ${cellSize}px)`;
 
-  // Create grid cells (divs) based on the selected size
+  grid.innerHTML = ""; // Clear existing cells
   for (let i = 1; i <= gridSize ** 2; i++) {
     const div = document.createElement("div");
     div.className = `main__grid-items grid-item-${i}`;
     grid.appendChild(div);
   }
 
-  // Add interactivity to the grid cells
-  const gridItems = document.querySelectorAll(".main__grid-items");
-
-  let isDrawing = false;
-  let isClicking = false;
-
-  gridItems.forEach((item) => {
-    let eraserState = false;
-
-    // Toggle the eraser on/off when the eraser button is clicked
-    eraser.addEventListener("click", function () {
-      eraserState = !eraserState;
-    });
-
-    item.addEventListener("mousemove", function (event) {
-      const selectedColor = colorPicker.value;
-      const clickedItem = event.target;
-
-      if (eraserState) {
-        // Apply the fade-out animation class
-        clickedItem.classList.add("fade-out");
-
-        // Remove the fade-out class and change the background color after the animation
-        setTimeout(() => {
-          clickedItem.style.backgroundColor = "whitesmoke";
-          clickedItem.classList.remove("fade-out");
-        }, 200); // 200 milliseconds (0.2 seconds) delay
-      } else {
-        clickedItem.style.backgroundColor = selectedColor;
-
-        // Apply the fade-in animation class
-        clickedItem.classList.add("fade-in");
-
-        // Remove the fade-in class after the animation
-        setTimeout(() => {
-          clickedItem.classList.remove("fade-in");
-        }, 200); // 200 milliseconds (0.2 seconds) delay
-      }
-    });
-
-    clearButton.addEventListener("click", function () {
-      item.style.backgroundColor = "whitesmoke";
-      eraserState = false;
-    });
-
-    colorPicker.addEventListener("click", function () {
-      eraserState = false;
-    });
+  document.querySelectorAll(".main__grid-items").forEach((item) => {
+    item.addEventListener("mousemove", handleMouseMove);
+    item.addEventListener("mousedown", handleMouseMove);
   });
 }
 
-// Create a debounced version of makeEtchWork with a 300ms delay
+// Creates a debounced version of the makeEtchWork function
 const debouncedMakeEtchWork = debounce(makeEtchWork, 300);
 
-// When the user selects a new grid size, update the display and redraw the grid
-gridSizePicker.addEventListener("input", function () {
-  const sliderValue = gridSizePicker.value; // Get the current slider value
-
-  // Update the display element to show the selected grid size
-  gridSizeText.textContent = sliderValue;
-
-  // Clear the existing grid cells
-  while (grid.firstChild) {
-    grid.removeChild(grid.firstChild);
-  }
-
-  // An array of grid sizes to execute makeEtchWork for
-  const gridSizesToExecuteMakeGridWork = [
-    "64",
-    "63",
-    "62",
-    "61",
-    "60",
-    "59",
-    "58",
-    "57",
-    "56",
-    "55",
-    "54",
-    "53",
-    "52",
-    "51",
-    "50",
-    "49",
-    "48",
-    "47",
-    "46",
-    "45",
-    "44",
-    "43",
-    "42",
-    "41",
-    "40",
-    "39",
-    "38",
-    "37",
-    "36",
-    "35",
-    "34",
-    "33",
-    "32",
-    "31",
-    "30",
-    "29",
-    "28",
-    "27",
-    "26",
-    "25",
-    "24",
-    "23",
-    "22",
-    "21",
-    "20",
-    "19",
-    "18",
-    "17",
-    "16",
-    "15",
-    "14",
-    "13",
-    "12",
-    "11",
-    "10",
-    "9",
-    "8",
-    "7",
-    "6",
-    "5",
-    "4",
-    "3",
-    "2",
-    "1",
-  ];
-
-  // Execute makeEtchWork when the selected size matches a value in the array
-  gridSizesToExecuteMakeGridWork.forEach((value) => {
-    if (sliderValue === value) {
-      debouncedMakeEtchWork(); // Use the debounced function to delay execution
-    }
-  });
+/* EVENT LISTENERS */
+// Toggles the eraser mode and updates the eraser button's border
+eraser.addEventListener("click", function () {
+  eraserState = !eraserState;
+  updateEraserStyle(); // Update eraser style when toggled
 });
 
-// Call makeEtchWork at the end of your code to ensure it runs after everything else.
+// Updates the background color of the color picker to the selected color
+colorPicker.addEventListener("input", function () {
+  colorPicker.style.backgroundColor = colorPicker.value;
+});
+
+// Reset eraser state when the color picker is clicked
+colorPicker.addEventListener("click", function () {
+  eraserState = false;
+  updateEraserStyle(); // Update eraser style when color picker is clicked
+});
+
+// Clear grid and reset eraser state when the clear button is clicked
+clearButton.addEventListener("click", function () {
+  document.querySelectorAll(".main__grid-items").forEach((item) => {
+    item.style.backgroundColor = "whitesmoke";
+  });
+  eraserState = false;
+  updateEraserStyle(); // Update eraser style when grid is cleared
+});
+
+// Update grid size and redraw the grid when the grid size picker value changes
+gridSizePicker.addEventListener("input", () => {
+  const sliderValue = gridSizePicker.value;
+  gridSizeText.textContent = sliderValue;
+  debouncedMakeEtchWork(); // Use debounced function to update grid
+});
+
+// Create the initial grid setup
 makeEtchWork();
